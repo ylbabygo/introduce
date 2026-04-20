@@ -7,9 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --nio-blue: #00D4FF;
-            --nio-blue-dark: #0099CC;
-            --nio-blue-glow: rgba(0,212,255,0.4);
+            --nio-blue: #DCEAFA;
+            --nio-blue-dark: #B8D4E8;
+            --nio-blue-glow: rgba(220,234,250,0.5);
             --dark: #0A0A0F;
             --gray: #1A1A24;
             --light: #2A2A3A;
@@ -1454,6 +1454,22 @@
             document.getElementById('chat-window').classList.toggle('open');
             document.getElementById('chat-btn').classList.toggle('active');
         }
+        // Chat - Fixed session and opening filter
+        let sessionId = 'yuli_chat_' + Date.now().toString().slice(-8);
+        let messageCount = 0;
+
+        function isOpeningMessage(text) {
+            if (!text) return false;
+            const openingKeywords = [
+                '您好，我是余立',
+                '我是余立',
+                '我是余立的专属AI面试助理',
+                '欢迎来到余立面试助手',
+                '很高兴为您服务'
+            ];
+            return openingKeywords.some(kw => text.includes(kw)) && text.length < 300;
+        }
+
         function addChatMsg(text, isUser = false) {
             const container = document.getElementById('chat-messages');
             const div = document.createElement('div');
@@ -1483,7 +1499,7 @@
             input.value = '';
             showTyping();
 
-            const sessionId = 'session_' + Date.now().toString();
+            messageCount++;
             fetch('/api/coze', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -1498,7 +1514,6 @@
                 console.log('API Response:', data);
                 let reply = '';
 
-                // Handle various response formats
                 if (data?.choices?.[0]?.message?.content) {
                     reply = data.choices[0].message.content;
                 } else if (data?.message) {
@@ -1508,10 +1523,16 @@
                 } else if (typeof data === 'string') {
                     reply = data;
                 } else {
-                    // Try to extract any useful info
                     reply = JSON.stringify(data);
                 }
-                addChatMsg(reply || '抱歉，暂时无法回答。');
+
+                // Filter opening message on first exchange
+                if (messageCount === 1 && isOpeningMessage(reply)) {
+                    // Skip opening, ask user what they want to know
+                    addChatMsg('👋 你好！关于余立的经历，你想了解哪个方面？', false);
+                } else {
+                    addChatMsg(reply || '抱歉，暂时无法回答。');
+                }
             })
             .catch(err => {
                 hideTyping();
