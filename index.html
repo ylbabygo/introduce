@@ -1497,15 +1497,18 @@
                 hideTyping();
                 console.log('API Response:', data);
                 let reply = '';
+
+                // Handle various response formats
                 if (data?.choices?.[0]?.message?.content) {
                     reply = data.choices[0].message.content;
                 } else if (data?.message) {
                     reply = data.message;
                 } else if (data?.error) {
-                    reply = '错误: ' + data.error;
+                    reply = 'AI服务错误: ' + (data.message || data.error);
                 } else if (typeof data === 'string') {
                     reply = data;
                 } else {
+                    // Try to extract any useful info
                     reply = JSON.stringify(data);
                 }
                 addChatMsg(reply || '抱歉，暂时无法回答。');
