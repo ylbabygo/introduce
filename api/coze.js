@@ -49,35 +49,25 @@ export default async function handler(req, res) {
       const { done, value } = await reader.read();
 
       if (done) {
-        // Process any remaining data in buffer
         if (buffer) {
-          fullAnswer += processBuffer(buffer);
+          fullAnswer += processLine(buffer);
         }
         break;
       }
 
       buffer += decoder.decode(value, { stream: true });
-
-      // Process complete lines in buffer
       const lines = buffer.split('\n');
-      buffer = lines.pop() || ''; // Keep incomplete line in buffer
+      buffer = lines.pop() || '';
 
       for (const line of lines) {
         fullAnswer += processLine(line);
       }
     }
 
-    // Clean up the answer
     fullAnswer = fullAnswer.trim();
 
-    if (!fullAnswer) {
-      return res.status(200).json({
-        message: '收到消息'
-      });
-    }
-
     return res.status(200).json({
-      message: fullAnswer
+      message: fullAnswer || '收到消息'
     });
 
   } catch (error) {
@@ -89,7 +79,6 @@ export default async function handler(req, res) {
   }
 }
 
-// Process a single SSE line
 function processLine(line) {
   if (!line.startsWith('data:')) return '';
 
@@ -101,14 +90,7 @@ function processLine(line) {
     if (data?.type === 'answer' && data?.content?.answer) {
       return data.content.answer;
     }
-  } catch (e) {
-    // Skip invalid JSON
-  }
+  } catch (e) {}
 
   return '';
-}
-
-// Process remaining buffer
-function processBuffer(buffer) {
-  return processLine('data: ' + buffer);
 }
