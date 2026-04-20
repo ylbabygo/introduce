@@ -1518,7 +1518,7 @@
                 }
 
                 // Filter opening message - skip it and ask what user wants
-                if (reply.includes('专业背景') && reply.includes('随时告知')) {
+                if (reply.includes('专业背景') && (reply.includes('随时告知') || reply.includes('随时提出'))) {
                     // This is the opening message, ask what they want to know
                     addChatMsg('你好！我已经了解余立的背景了。关于他的经历，你想了解哪个方面？比如：\n• 工作经历\n• 核心项目\n• 技能能力\n• 为什么想加入蔚来', false);
                 } else {
