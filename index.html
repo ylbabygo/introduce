@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>余立的简历</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --nio-blue: #00D4FF;
+            --nio-blue-dark: #0099CC;
+            --nio-blue-glow: rgba(0,212,255,0.4);
+            --dark: #0A0A0F;
+            --gray: #1A1A24;
+            --light: #2A2A3A;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: var(--dark);
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+        .font-inter { font-family: 'Inter', sans-serif; }
+
+        /* Background */
+        .bg-layer {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+        }
+        .bg-layer::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('bg-tablet.jpg') center center / cover no-repeat;
+            opacity: 0.1;
+        }
+        .bg-layer::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(ellipse at 30% 20%, rgba(0,212,255,0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(0,212,255,0.06) 0%, transparent 50%),
+                linear-gradient(180deg, #0A0A0F 0%, #1A1A24 50%, #0A0A0F 100%);
+        }
+
+        /* Glass */
+        .glass-card {
+            background: linear-gradient(145deg, rgba(26,26,36,0.85) 0%, rgba(42,42,58,0.5) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0,212,255,0.15);
+            transition: all 0.4s ease;
+        }
+        .glass-card:hover {
+            border-color: rgba(0,212,255,0.4);
+            box-shadow: 0 8px 40px rgba(0,212,255,0.12);
+        }
+
+        /* Glow */
+        .glow { color: var(--nio-blue); text-shadow: 0 0 30px var(--nio-blue-glow); }
+
+        /* Section Num */
+        .section-num {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            color: var(--nio-blue);
+        }
+
+        /* Fade In */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        /* ========== NAV ========== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            background: rgba(10,10,15,0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        nav .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav .logo {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--nio-blue);
+        }
+        nav .nav-links { display: flex; gap: 2rem; }
+        nav .nav-links a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.3s;
+        }
+        nav .nav-links a:hover { color: var(--nio-blue); }
+
+        /* ========== HERO ========== */
+        .hero {
+            min-height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('bg-tablet.jpg') center center / cover no-repeat;
+            opacity: 0.5;
+        }
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(10,10,15,0.5) 0%, rgba(10,10,15,0.3) 40%, rgba(10,10,15,0.5) 100%);
+        }
+
+        /* Hero Content */
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 800px;
+            padding: 2rem;
+            text-align: center;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            background: rgba(0,212,255,0.1);
+            border: 1px solid rgba(0,212,255,0.3);
+            color: var(--nio-blue);
+            margin-bottom: 1.5rem;
+        }
+        .hero-badge-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--nio-blue);
+            box-shadow: 0 0 10px var(--nio-blue);
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+        .hero-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 5rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+        .hero-name span {
+            color: var(--nio-blue);
+            text-shadow: 0 0 60px var(--nio-blue-glow);
+        }
+        .hero-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 300;
+            letter-spacing: 0.6em;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 1.5rem;
+        }
+        .hero-divider {
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--nio-blue), transparent);
+            margin: 0 auto 1.5rem;
+        }
+        .hero-desc {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hero-tags { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin-bottom: 1.5rem; }
+        .hero-tag {
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.9rem;
+            background: rgba(0,212,255,0.1);
+            border: 1px solid rgba(0,212,255,0.3);
+            color: rgba(255,255,255,0.8);
+            transition: all 0.3s ease;
+        }
+        .hero-tag:hover {
+            background: rgba(0,212,255,0.2);
+            border-color: rgba(0,212,255,0.6);
+            color: var(--nio-blue);
+        }
+        .hero-btns { display: flex; gap: 1rem; justify-content: center; }
+        .btn-primary {
+            padding: 0.875rem 2rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            background: linear-gradient(135deg, var(--nio-blue), var(--nio-blue-dark));
+            color: #000;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px var(--nio-blue-glow);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 25px var(--nio-blue-glow); }
+        .btn-secondary {
+            padding: 0.875rem 2rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover { border-color: var(--nio-blue); color: var(--nio-blue); }
+
+        /* ========== SECTIONS ========== */
+        section { padding: 3rem 1.5rem; max-width: 1200px; margin: 0 auto; }
+        .section-header { margin-bottom: 2rem; }
+
+        /* ========== ABOUT / INTRO ========== */
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        .intro-text h3 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        .intro-text p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+        .intro-tags { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+        .intro-tag {
+            padding: 0.375rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            background: rgba(0,212,255,0.1);
+            border: 1px solid rgba(0,212,255,0.3);
+            color: var(--nio-blue);
+        }
+        .info-card {
+            padding: 2rem;
+            border-radius: 1rem;
+        }
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .info-item:last-child { border-bottom: none; }
+        .info-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 0.5rem;
+            background: rgba(0,212,255,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+        .info-label { font-size: 0.75rem; color: rgba(255,255,255,0.4); }
+        .info-value { font-weight: 500; }
+
+        /* ========== SKILLS ========== */
+        .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .skill-card {
+            padding: 1.75rem;
+            border-radius: 1rem;
+            text-align: center;
+        }
+        .skill-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .skill-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .skill-sub {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            color: var(--nio-blue);
+            margin-bottom: 1rem;
+        }
+        .skill-desc { font-size: 0.875rem; color: rgba(255,255,255,0.6); line-height: 1.7; }
+        .skill-list { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+        .skill-tag {
+            font-size: 0.7rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            background: rgba(0,212,255,0.1);
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* ========== KPI ========== */
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .kpi-card { padding: 1.75rem; border-radius: 1rem; }
+        .kpi-label { font-size: 0.875rem; color: rgba(255,255,255,0.5); margin-bottom: 0.5rem; }
+        .kpi-value {
+            font-family: 'Inter', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--nio-blue);
+            text-shadow: 0 0 20px var(--nio-blue-glow);
+        }
+        .kpi-sub { font-size: 0.875rem; color: rgba(255,255,255,0.4); margin-top: 0.5rem; }
+
+        /* ========== CHARTS ========== */
+        .charts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 1.5rem; }
+        .chart-card { padding: 1.5rem; border-radius: 1rem; }
+        .chart-title { font-size: 1rem; font-weight: 500; margin-bottom: 1.5rem; }
+        .chart-container { height: 220px; position: relative; }
+
+        /* Line Chart (CSS) */
+        .line-chart { width: 100%; height: 100%; }
+        .line-chart svg { width: 100%; height: 100%; }
+        .chart-line {
+            fill: none;
+            stroke: var(--nio-blue);
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawLine 2s ease forwards;
+        }
+        @keyframes drawLine { to { stroke-dashoffset: 0; } }
+        .chart-dot { fill: var(--nio-blue); filter: drop-shadow(0 0 6px var(--nio-blue-glow)); }
+        .chart-grid-line { stroke: rgba(255,255,255,0.05); }
+        .chart-label { fill: rgba(255,255,255,0.4); font-size: 10px; }
+        .chart-tooltip {
+            position: absolute;
+            background: rgba(26,26,36,0.95);
+            border: 1px solid var(--nio-blue);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            font-size: 0.8rem;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .chart-tooltip.show { opacity: 1; }
+
+        /* Bar Chart (CSS) */
+        .bar-chart { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-around; }
+        .bar-item { display: flex; align-items: center; gap: 0.75rem; }
+        .bar-label { width: 70px; font-size: 0.75rem; color: rgba(255,255,255,0.5); text-align: right; flex-shrink: 0; }
+        .bar-track { flex: 1; height: 24px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden; position: relative; }
+        .bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--nio-blue), var(--nio-blue-dark));
+            border-radius: 4px;
+            transition: width 1.5s ease;
+            box-shadow: 0 0 20px var(--nio-blue-glow);
+        }
+        .bar-value { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 0.7rem; font-weight: 600; color: #fff; }
+
+        /* ========== EXPERIENCE ========== */
+        .timeline { position: relative; padding-left: 2rem; }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--nio-blue), rgba(0,212,255,0.2));
+        }
+        .timeline-item { position: relative; padding-bottom: 2.5rem; }
+        .timeline-item:last-child { padding-bottom: 0; }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0.25rem;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--nio-blue);
+            box-shadow: 0 0 15px var(--nio-blue-glow);
+            transform: translateX(-4px);
+        }
+        .timeline-date {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            color: var(--nio-blue);
+            margin-bottom: 0.5rem;
+        }
+        .timeline-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .timeline-company { font-size: 0.875rem; color: rgba(255,255,255,0.5); margin-bottom: 1rem; }
+        .timeline-content { padding: 1.25rem; border-radius: 0.75rem; background: rgba(255,255,255,0.03); }
+        .timeline-content p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.75);
+            margin-bottom: 0.75rem;
+            padding-left: 1rem;
+            border-left: 2px solid rgba(0,212,255,0.3);
+        }
+        .timeline-content p:last-child { margin-bottom: 0; }
+        .highlight {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: rgba(0,212,255,0.15);
+            color: var(--nio-blue);
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ========== PROJECTS ========== */
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem; }
+        .project-card {
+            padding: 1.75rem;
+            border-radius: 1rem;
+            transition: all 0.4s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0,212,255,0.5);
+        }
+        .project-header { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.25rem; }
+        .project-icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 0.75rem;
+            background: rgba(0,212,255,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        .project-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .project-subtitle { font-size: 0.8rem; color: rgba(255,255,255,0.4); }
+        .project-desc { font-size: 0.9rem; color: rgba(255,255,255,0.7); margin-bottom: 1.25rem; line-height: 1.8; }
+        .project-results { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .result-tag {
+            font-size: 0.75rem;
+            padding: 0.375rem 0.875rem;
+            border-radius: 9999px;
+            background: rgba(0,212,255,0.1);
+            border: 1px solid rgba(0,212,255,0.3);
+            color: var(--nio-blue);
+        }
+
+        /* ========== ARCHITECTURE ========== */
+        .arch-tabs { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; margin-bottom: 3rem; }
+        .arch-tab {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: transparent;
+            color: rgba(255,255,255,0.6);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .arch-tab:hover { border-color: var(--nio-blue); color: var(--nio-blue); }
+        .arch-tab.active { background: var(--nio-blue); color: #000; border-color: var(--nio-blue); }
+
+        /* Detailed Architecture Flow */
+        .arch-container {
+            background: rgba(0,0,0,0.3);
+            border-radius: 1rem;
+            padding: 2rem;
+            border: 1px solid rgba(0,212,255,0.1);
+        }
+        .arch-project-title {
+            text-align: center;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--nio-blue);
+        }
+        .arch-flow {
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+            gap: 0;
+            flex-wrap: wrap;
+        }
+        .arch-stage {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 180px;
+            flex: 1;
+        }
+        .arch-stage-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+        .arch-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+        }
+        .arch-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 0.75rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .arch-icon::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 1.25rem;
+            background: linear-gradient(135deg, var(--nio-blue), transparent);
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+        .arch-icon:hover::after { opacity: 0.3; }
+        .arch-icon:hover { transform: translateY(-3px); }
+        .arch-node:nth-child(odd) .arch-icon {
+            background: linear-gradient(135deg, rgba(0,212,255,0.2), rgba(0,212,255,0.1));
+            border: 2px solid rgba(0,212,255,0.5);
+        }
+        .arch-node:nth-child(even) .arch-icon {
+            background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(0,212,255,0.05));
+            border: 2px solid rgba(0,212,255,0.3);
+        }
+        .arch-node-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .arch-node-detail {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
+            padding: 0.5rem 0.75rem;
+            background: rgba(0,0,0,0.4);
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+            width: 100%;
+        }
+        .arch-node-tech {
+            font-size: 0.65rem;
+            color: var(--nio-blue);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.25rem;
+            justify-content: center;
+        }
+        .arch-node-tech span {
+            padding: 0.125rem 0.5rem;
+            background: rgba(0,212,255,0.15);
+            border-radius: 9999px;
+        }
+
+        /* Arrow connector */
+        .arch-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 0.5rem;
+            flex-shrink: 0;
+        }
+        .arch-arrow-line {
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(0,212,255,0.6), rgba(0,212,255,0.3));
+            position: relative;
+        }
+        .arch-arrow-line::after {
+            content: '▶';
+            position: absolute;
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--nio-blue);
+            font-size: 0.6rem;
+            opacity: 0.6;
+        }
+        .arch-arrow-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--nio-blue);
+            box-shadow: 0 0 10px var(--nio-blue);
+            animation: flowDot 2s ease-in-out infinite;
+        }
+        @keyframes flowDot {
+            0%, 100% { opacity: 0.4; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Project description */
+        .arch-desc {
+            margin-top: 2rem;
+            padding: 1.25rem;
+            background: rgba(0,212,255,0.05);
+            border: 1px solid rgba(0,212,255,0.15);
+            border-radius: 0.75rem;
+            font-size: 0.875rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+        }
+        .arch-desc-title {
+            font-weight: 600;
+            color: var(--nio-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        /* ========== VALUES ========== */
+        .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .value-card { padding: 2rem; border-radius: 1rem; text-align: center; cursor: pointer; }
+        .value-icon { font-size: 2.5rem; margin-bottom: 1rem; transition: transform 0.3s ease; }
+        .value-card:hover .value-icon { transform: scale(1.15); }
+        .value-title { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .value-sub { font-family: 'Inter', sans-serif; font-size: 0.7rem; letter-spacing: 0.1em; color: rgba(255,255,255,0.4); margin-bottom: 1rem; }
+        .value-desc { font-size: 0.875rem; color: rgba(255,255,255,0.6); line-height: 1.7; }
+
+        /* ========== CONTACT ========== */
+        .contact-card { display: inline-block; padding: 2rem 3rem; border-radius: 1rem; }
+        .contact-grid { display: flex; gap: 3rem; flex-wrap: wrap; justify-content: center; }
+        .contact-label { font-size: 0.75rem; color: rgba(255,255,255,0.4); margin-bottom: 0.25rem; }
+        .contact-value { font-size: 1rem; font-weight: 500; }
+
+        /* ========== CHAT ========== */
+        .chat-btn {
+            position: fixed;
+            bottom: 1.75rem;
+            right: 1.75rem;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--nio-blue), var(--nio-blue-dark));
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 24px var(--nio-blue-glow);
+            transition: all 0.3s ease;
+        }
+        .chat-btn:hover { transform: scale(1.08); box-shadow: 0 6px 32px var(--nio-blue-glow); }
+        .chat-btn.active { transform: rotate(45deg); }
+        .chat-window {
+            position: fixed;
+            bottom: 5.5rem;
+            right: 1.75rem;
+            width: 360px;
+            max-height: 480px;
+            border-radius: 1rem;
+            z-index: 999;
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            pointer-events: none;
+            transition: all 0.35s ease;
+            overflow: hidden;
+        }
+        .chat-window.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: all; }
+        .chat-header {
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .chat-header-info { display: flex; align-items: center; gap: 0.75rem; }
+        .chat-avatar {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--nio-blue), var(--nio-blue-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+        .chat-header-text .name { font-weight: 500; font-size: 0.9rem; }
+        .chat-header-text .status { font-size: 0.7rem; color: rgba(255,255,255,0.4); }
+        .chat-close { background: none; border: none; color: rgba(255,255,255,0.6); cursor: pointer; font-size: 1.25rem; padding: 0.25rem; }
+        .chat-close:hover { color: #fff; }
+        .chat-messages {
+            height: 260px;
+            overflow-y: auto;
+            padding: 1rem;
+            background: rgba(10,10,15,0.95);
+        }
+        .chat-msg { margin-bottom: 0.75rem; animation: fadeInUp 0.3s ease; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .chat-msg-user { display: flex; justify-content: flex-end; }
+        .chat-msg-ai { display: flex; justify-content: flex-start; }
+        .chat-bubble {
+            max-width: 80%;
+            padding: 0.625rem 0.875rem;
+            border-radius: 1rem;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+        .chat-msg-user .chat-bubble { background: var(--nio-blue); color: #000; border-bottom-right-radius: 4px; }
+        .chat-msg-ai .chat-bubble { background: rgba(255,255,255,0.08); border-bottom-left-radius: 4px; }
+        .chat-typing { display: flex; gap: 4px; padding: 0.625rem 0.875rem; }
+        .typing-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.6);
+            animation: typingBounce 1.4s infinite ease-in-out;
+        }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typingBounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-4px); } }
+        .chat-quick { padding: 0.75rem; display: flex; flex-wrap: wrap; gap: 0.5rem; border-top: 1px solid rgba(255,255,255,0.05); }
+        .quick-btn {
+            font-size: 0.7rem;
+            padding: 0.375rem 0.75rem;
+            border-radius: 9999px;
+            background: rgba(0,212,255,0.1);
+            border: 1px solid rgba(0,212,255,0.3);
+            color: var(--nio-blue);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .quick-btn:hover { background: rgba(0,212,255,0.2); transform: scale(1.05); }
+        .chat-input-area { padding: 0.75rem; display: flex; gap: 0.5rem; border-top: 1px solid rgba(255,255,255,0.08); }
+        .chat-input {
+            flex: 1;
+            padding: 0.625rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+            font-size: 0.875rem;
+        }
+        .chat-input:focus { outline: none; border-color: var(--nio-blue); }
+        .chat-send {
+            padding: 0.625rem 1.25rem;
+            border-radius: 0.5rem;
+            background: var(--nio-blue);
+            border: none;
+            color: #000;
+            font-weight: 500;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .chat-send:hover { background: var(--nio-blue-dark); }
+
+        /* Footer */
+        footer { text-align: center; padding: 2rem; font-size: 0.8rem; color: rgba(255,255,255,0.3); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav .nav-links { display: none; }
+            .hero-name { font-size: 3rem; }
+            .hero-title { font-size: 1.25rem; letter-spacing: 0.2em; }
+            .intro-grid { grid-template-columns: 1fr; }
+            .skills-grid { grid-template-columns: 1fr; }
+            .charts-grid { grid-template-columns: 1fr; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .contact-grid { flex-direction: column; gap: 1.5rem; }
+            .chat-window { width: calc(100vw - 2rem); right: 1rem; }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--nio-blue); border-radius: 2px; }
+    </style>
+</head>
+<body>
+    <div class="bg-layer"></div>
+
+    <!-- NAV -->
+    <nav>
+        <div class="nav-inner">
+            <div class="logo">余立 YULI</div>
+            <div class="nav-links">
+                <a href="#about">关于我</a>
+                <a href="#skills">技能</a>
+                <a href="#experience">经历</a>
+                <a href="#projects">项目</a>
+                <a href="#dashboard">数据</a>
+                <a href="#contact">联系</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+        <div class="hero-bg"></div>
+
+        <div class="hero-inner">
+            <div class="hero-badge">
+                <div class="hero-badge-dot"></div>
+                <span>期待加入蔚来</span>
+            </div>
+            <h1 class="hero-name"><span>余立</span></h1>
+            <p class="hero-title">Y U L I</p>
+            <div class="hero-divider"></div>
+            <p class="hero-desc">
+                软件工程科班出身，具备极强的数据嗅觉与逻辑拆解能力。擅长从海量业务行为数据与用户原声（VOC）中挖掘痛点，驱动业务策略迭代，实现运营体系的智能化降本增效。极客玩家，熟练应用大语言模型（LLM）与Agent技术，具备成熟的Prompt Engineering调优经验。
+            </p>
+            <div class="hero-tags">
+                <span class="hero-tag">🤖 AI Agent</span>
+                <span class="hero-tag">📊 数据分析</span>
+                <span class="hero-tag">⚡ 运营增长</span>
+                <span class="hero-tag">🎯 业务转化</span>
+                <span class="hero-tag">🔧 Prompt调优</span>
+            </div>
+            <div class="hero-btns">
+                <a href="#about" class="btn-primary">了解更多</a>
+                <a href="#contact" class="btn-secondary">联系我</a>
+            </div>
+    </section>
+
+    <!-- About / Intro -->
+    <section id="about" class="fade-in">
+        <div class="section-header">
+            <div class="section-num">01 — 关于我</div>
+        </div>
+        <div class="intro-grid">
+            <div class="intro-text">
+                <h3>用AI重塑业务流，用数据倾听用户原声</h3>
+                <p>软件工程科班出身，具备极强的数据嗅觉与逻辑拆解能力。擅长从海量业务行为数据与用户原声（VOC）中挖掘痛点，驱动业务策略迭代，实现运营体系的智能化降本增效。</p>
+                <p>极客玩家，熟练应用大语言模型（LLM）与Agent技术，具备成熟的Prompt Engineering调优经验。能独立规划并搭建垂直领域的AI业务流水线，显著缩短业务响应周期。</p>
+                <p>拥有多次主导区域级核心战役及新业务线孵化的实战经验，具备强悍的业务目标一号位视角，能高效协同产研、销售、服务等多条业务线。</p>
+                <div class="intro-tags">
+                    <span class="intro-tag">Python</span>
+                    <span class="intro-tag">SQL</span>
+                    <span class="intro-tag">AI Agent</span>
+                    <span class="intro-tag">Prompt Engineering</span>
+                    <span class="intro-tag">数据分析</span>
+                    <span class="intro-tag">Coze</span>
+                    <span class="intro-tag">Claude</span>
+                </div>
+            </div>
+            <div class="info-card glass-card">
+                <div class="info-item">
+                    <div class="info-icon">📞</div>
+                    <div>
+                        <div class="info-label">电话</div>
+                        <div class="info-value">18726948683</div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">✉️</div>
+                    <div>
+                        <div class="info-label">邮箱</div>
+                        <div class="info-value">monkbabygo@qq.com</div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">🎓</div>
+                    <div>
+                        <div class="info-label">教育背景</div>
+                        <div class="info-value">淮南师范学院 · 软件工程 本科</div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">📍</div>
+                    <div>
+                        <div class="info-label">所在地</div>
+                        <div class="info-value">合肥</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="fade-in">
+        <div class="section-header">
+            <div class="section-num">02 — 专业技能</div>
+        </div>
+        <div class="skills-grid">
+            <div class="glass-card skill-card">
+                <div class="skill-icon">📊</div>
+                <div class="skill-title">数据挖掘与分析</div>
+                <div class="skill-sub">DATA ANALYSIS</div>
+                <div class="skill-desc">精通数据清洗、可视化及转化漏斗建模，熟练掌握 SPSS/Eviews/Stata 等分析工具</div>
+                <div class="skill-list">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">SQL</span>
+                    <span class="skill-tag">SPSS</span>
+                    <span class="skill-tag">Eviews</span>
+                </div>
+            </div>
+            <div class="glass-card skill-card">
+                <div class="skill-icon">🤖</div>
+                <div class="skill-title">AI与大语言模型</div>
+                <div class="skill-sub">LLM & AGENT</div>
+                <div class="skill-desc">熟练运用 Coze、Claude、Trae 等前沿AI工具与Agent平台，掌握Prompt调优与RAG应用</div>
+                <div class="skill-list">
+                    <span class="skill-tag">Coze</span>
+                    <span class="skill-tag">Claude</span>
+                    <span class="skill-tag">RAG</span>
+                    <span class="skill-tag">Agent</span>
+                </div>
+            </div>
+            <div class="glass-card skill-card">
+                <div class="skill-icon">🛠️</div>
+                <div class="skill-title">日常工具栈</div>
+                <div class="skill-sub">TOOLS</div>
+                <div class="skill-desc">熟练使用PS/PR/Office套件，具备扎实的运营物料产出与数据报告撰写能力</div>
+                <div class="skill-list">
+                    <span class="skill-tag">Photoshop</span>
+                    <span class="skill-tag">Premiere</span>
+                    <span class="skill-tag">Office</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience" class="fade-in">
+        <div class="section-header">
+            <div class="section-num">03 — 工作经历</div>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">2025.03 - 至今</div>
+                <div class="timeline-title">学科运营经理（偏数据与AI应用方向）</div>
+                <div class="timeline-company">51Talk · 一对一在线英语教育</div>
+                <div class="timeline-content glass-card">
+                    <p>深入业务一线，基于数据分析与深度用户访谈，持续洞察学员英语学习的真实痛点与需求演变趋势</p>
+                    <p>定期爬取与整合市场动态、政策风向及竞品迭代信息，输出深度调研报告，为产品形态调整及运营策略制定提供数据支撑</p>
+                    <p>主导策划并制作高转化率的学科物料库（SOP），协同销售、辅导、师资运营等多维团队，确保策略动作精准落地</p>
+                    <p>作为核心"副将"深度参与"锦州之战"等战略级项目，主导区域市场的运营策略拆解与目标达成</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2024.08 - 2025.02</div>
+                <div class="timeline-title">运营经理（新产品孵化与增长）</div>
+                <div class="timeline-company">安徽鼎校教育科技公司</div>
+                <div class="timeline-content glass-card">
+                    <p>负责平台3款全新产品的运营闭环设计，梳理底层逻辑，输出标准化的产品SOP与全套营销物料</p>
+                    <p>建立日常数据追踪机制，通过分析区域合伙人的成交转化漏斗，精准定位卡点，定期策划针对性的线上/线下运营活动</p>
+                    <p><span class="highlight">120%目标达成率</span>在职期间，主导的3款核心产品营收均实现超额交付</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2022.09 - 2024.05</div>
+                <div class="timeline-title">销售经理（兼运营统筹）</div>
+                <div class="timeline-company">蓝图天下教育科技有限公司</div>
+                <div class="timeline-content glass-card">
+                    <p>全面盘点项目整体运行情况，参与引流链路设计，基于业务洞察提出10+条销售战略优化建议并被采纳</p>
+                    <p>主导低价课转正价课的SOP制定与转化执行，建立完善的销售培训体系</p>
+                    <p><span class="highlight">年度产出2500万+</span><span class="highlight">ROI 2.0+</span>任期内团队季度产出突破1000万+，项目整体ROI提升至2以上</p>
+                    <p>团队多次斩获合肥市销售业绩月度第一</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2021.11 - 2022.08</div>
+                <div class="timeline-title">项目运营负责人（初中素养拉新）</div>
+                <div class="timeline-company">作业帮教育科技有限公司</div>
+                <div class="timeline-content glass-card">
+                    <p>负责收集并整理素养课程用户反馈数据，深挖细分市场需求，对产品营销方向提出核心调整建议</p>
+                    <p>制定并执行高转化率的社群运营策略及SOP，建立核心指标追踪机制</p>
+                    <p><span class="highlight">200%目标完成率</span>最终实现项目北极星指标1.9，整体目标完成率达200%</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2020.03 - 2021.09</div>
+                <div class="timeline-title">学科运营主管</div>
+                <div class="timeline-company">学而思网校</div>
+                <div class="timeline-content glass-card">
+                    <p>熟练使用SPSS等工具收集并分析营销课转化数据，横向比对竞品推广策略，基于数据归因调整运营决策</p>
+                    <p>建立用户定期回访追踪机制，捕捉用户需求变化，动态调整服务策略与营销配置</p>
+                    <p><span class="highlight">128%续报完成率</span><span class="highlight">95%满意度</span>寒假及春季续报目标完成率达128%，学员满意度高达95%</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="fade-in">
+        <div class="section-header">
+            <div class="section-num">04 — 核心项目</div>
+        </div>
+        <div class="projects-grid">
+            <div class="glass-card project-card">
+                <div class="project-header">
+                    <div class="project-icon">🎯</div>
+                    <div>
+                        <div class="project-title">智能化用户评级系统</div>
+                        <div class="project-subtitle">AI赋能业务提效</div>
+                    </div>
+                </div>
+                <div class="project-desc">
+                    传统的学员英语等级评估依赖人工主观判断，存在效率低、标准不一且难以规模化的问题。引入大语言模型（如Claude/Coze）并进行深度Prompt Engineering调优，将学员的基础测试数据与交互表现转化为结构化Prompt喂给模型，实现系统自动、高精度的等级判定。
+                </div>
+                <div class="project-results">
+                    <span class="result-tag">响应时间30min→1min</span>
+                    <span class="result-tag">人工干预率降低30%</span>
+                    <span class="result-tag">评级准确度90%</span>
+                </div>
+            </div>
+
+            <div class="glass-card project-card">
+                <div class="project-header">
+                    <div class="project-icon">📈</div>
+                    <div>
+                        <div class="project-title">VOC用户原声分析中台</div>
+                        <div class="project-subtitle">数据驱动决策</div>
+                    </div>
+                </div>
+                <div class="project-desc">
+                    面对海量且分散的用户反馈，搭建结构化的VOC收集链路，整合多渠道（App日志、客诉记录、调研问卷等）的非结构化数据。针对核心业务节点进行下钻分析，识别影响NPS的关键体验断层，建立用户流失预警指标，推动3项核心产品/服务策略的优化落地。
+                </div>
+                <div class="project-results">
+                    <span class="result-tag">满意度提升20%</span>
+                    <span class="result-tag">流失率降低2%</span>
+                </div>
+            </div>
+
+            <div class="glass-card project-card">
+                <div class="project-header">
+                    <div class="project-icon">🛡️</div>
+                    <div>
+                        <div class="project-title">Openclaw舆情监控矩阵</div>
+                        <div class="project-subtitle">自动化舆情监控</div>
+                    </div>
+                </div>
+                <div class="project-desc">
+                    独立部署基于Openclaw的自动化数据抓取工具，设定关键词与高频抓取策略，实现对外部非结构化图文数据的实时监控。建立负面信息的快速识别与分级机制，一旦捕捉到不利信息，系统自动触发预警推送到内部协作群。
+                </div>
+                <div class="project-results">
+                    <span class="result-tag">24小时快速响应</span>
+                    <span class="result-tag">实时预警推送</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard -->
+    <section id="dashboard" class="fade-in">
+        <div class="section-header">
+            <div class="section-num">05 — 数据面板</div>
+            <p style="color: rgba(255,255,255,0.5); margin-top: 0.5rem;">AI与SOP优化驱动的业务增长</p>
+        </div>
+
+        <div class="kpi-grid">
+            <div class="glass-card kpi-card">
+                <div class="kpi-label">历史操盘最高年度产出</div>
+                <div class="kpi-value">2500万+</div>
+                <div class="kpi-sub" style="color: var(--nio-blue);">蓝图天下</div>
+            </div>
+            <div class="glass-card kpi-card">
+                <div class="kpi-label">新产品项目目标达成率</div>
+                <div class="kpi-value">120%</div>
+                <div class="kpi-sub" style="color: var(--nio-blue);">鼎校教育</div>
+            </div>
+            <div class="glass-card kpi-card">
+                <div class="kpi-label">核心业务线最高满意度</div>
+                <div class="kpi-value">95%</div>
+                <div class="kpi-sub" style="color: var(--nio-blue);">学而思网校</div>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="glass-card chart-card">
+                <div class="chart-title">核心指标增长趋势</div>
+                <div class="chart-container">
+                    <div class="line-chart">
+                        <svg viewBox="0 0 400 180" preserveAspectRatio="none">
+                            <line x1="40" y1="20" x2="380" y2="20" class="chart-grid-line"/>
+                            <line x1="40" y1="60" x2="380" y2="60" class="chart-grid-line"/>
+                            <line x1="40" y1="100" x2="380" y2="100" class="chart-grid-line"/>
+                            <line x1="40" y1="140" x2="380" y2="140" class="chart-grid-line"/>
+                            <text x="40" y="170" class="chart-label">1月</text>
+                            <text x="108" y="170" class="chart-label">3月</text>
+                            <text x="176" y="170" class="chart-label">5月</text>
+                            <text x="244" y="170" class="chart-label">7月</text>
+                            <text x="312" y="170" class="chart-label">9月</text>
+                            <text x="380" y="170" class="chart-label">11月</text>
+                            <text x="35" y="24" class="chart-label" text-anchor="end">2.5</text>
+                            <text x="35" y="64" class="chart-label" text-anchor="end">2.0</text>
+                            <text x="35" y="104" class="chart-label" text-anchor="end">1.5</text>
+                            <text x="35" y="144" class="chart-label" text-anchor="end">1.0</text>
+                            <path d="M40,130 L108,115 L176,100 L244,78 L312,60 L380,38" class="chart-line"/>
+                            <circle cx="40" cy="130" r="5" class="chart-dot"/>
+                            <circle cx="108" cy="115" r="5" class="chart-dot"/>
+                            <circle cx="176" cy="100" r="5" class="chart-dot"/>
+                            <circle cx="244" cy="78" r="5" class="chart-dot"/>
+                            <circle cx="312" cy="60" r="5" class="chart-dot"/>
+                            <circle cx="380" cy="38" r="5" class="chart-dot"/>
+                            <circle cx="40" cy="130" r="15" fill="transparent" class="hover-dot" data-info="ROI: 1.2|优化前基线"/>
+                            <circle cx="108" cy="115" r="15" fill="transparent" class="hover-dot" data-info="ROI: 1.35|部署AI评级"/>
+                            <circle cx="176" cy="100" r="15" fill="transparent" class="hover-dot" data-info="ROI: 1.5|上线自动化SOP"/>
+                            <circle cx="244" cy="78" r="15" fill="transparent" class="hover-dot" data-info="ROI: 1.72|VOC中台上线"/>
+                            <circle cx="312" cy="60" r="15" fill="transparent" class="hover-dot" data-info="ROI: 1.89|舆情监控部署"/>
+                            <circle cx="380" cy="38" r="15" fill="transparent" class="hover-dot" data-info="ROI: 2.15|全链路优化"/>
+                        </svg>
+                    </div>
+                    <div class="chart-tooltip" id="line-tooltip"></div>
+                </div>
+            </div>
+
+            <div class="glass-card chart-card">
+                <div class="chart-title">用户服务生命周期转化率</div>
+                <div class="chart-container">
+                    <div class="bar-chart">
+                        <div class="bar-item">
+                            <div class="bar-label">初步接触</div>
+                            <div class="bar-track"><div class="bar-fill" style="width: 100%;"></div><span class="bar-value">100%</span></div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-label">深度体验</div>
+                            <div class="bar-track"><div class="bar-fill" style="width: 68%;"></div><span class="bar-value">68%</span></div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-label">成交转化</div>
+                            <div class="bar-track"><div class="bar-fill" style="width: 45%;"></div><span class="bar-value">45%</span></div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-label">续报增长</div>
+                            <div class="bar-track"><div class="bar-fill" style="width: 58%;"></div><span class="bar-value">58%</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 1rem;">
+                    <span class="glow" style="font-family: 'Inter'; font-size: 1.75rem; font-weight: 700;">128%</span>
+                    <span style="color: rgba(255,255,255,0.4); font-size: 0.875rem; margin-left: 0.5rem;">续报率</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture -->
+    <section id="architecture" class="fade-in">
+        <div class="section-header">
+            <div class="section-num">06 — 技术架构</div>
+            <p style="color: rgba(255,255,255,0.5); margin-top: 0.5rem;">三大核心AI项目流水线</p>
+        </div>
+
+        <div class="glass-card" style="padding: 2rem;">
+            <div class="arch-tabs">
+                <button class="arch-tab active" onclick="switchArch('voc')">VOC智能分析中台</button>
+                <button class="arch-tab" onclick="switchArch('ai')">AI英语等级判定系统</button>
+                <button class="arch-tab" onclick="switchArch('openclaw')">Openclaw舆情监控</button>
+            </div>
+            <div id="arch-flow"></div>
+        </div>
+    </section>
+
+    <!-- Values -->
+    <section id="values" class="fade-in">
+        <div class="section-header">
+            <div class="section-num">07 — 价值观</div>
+        </div>
+
+        <div class="values-grid">
+            <div class="glass-card value-card">
+                <div class="value-icon">📊</div>
+                <div class="value-title">数据底座</div>
+                <div class="value-sub">DATA-DRIVEN</div>
+                <div class="value-desc">基于 Python/SQL 与客观漏斗挖掘业务真相，拒绝拍脑袋决策，让每一个业务动作都有迹可循。</div>
+            </div>
+            <div class="glass-card value-card">
+                <div class="value-icon">⚡</div>
+                <div class="value-title">AI 赋能</div>
+                <div class="value-sub">AI-EMPOWERED</div>
+                <div class="value-desc">利用 LLM 与 Agent 构建自动化流水线。把重复劳动交给机器，把创造力还给运营。</div>
+            </div>
+            <div class="glass-card value-card">
+                <div class="value-icon">🎯</div>
+                <div class="value-title">用户至上</div>
+                <div class="value-sub">USER-CENTRIC</div>
+                <div class="value-desc">深耕 VOC 与 NPS 体系。将每一次服务触点、每一条意见反馈，转化为驱动产品迭代的护城河。</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="fade-in" style="text-align: center;">
+        <div class="section-header">
+            <div class="section-num">08 — 联系方式</div>
+        </div>
+
+        <div class="glass contact-card">
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <div class="contact-label">电话</div>
+                    <div class="contact-value">18726948683</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">邮箱</div>
+                    <div class="contact-value">monkbabygo@qq.com</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">教育背景</div>
+                    <div class="contact-value">淮南师范学院 · 软件工程</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 余立 · 简历 · 期待加入蔚来</p>
+    </footer>
+
+    <!-- Chat Widget -->
+    <button class="chat-btn" id="chat-btn" onclick="toggleChat()">💬</button>
+    <div class="glass chat-window" id="chat-window">
+        <div style="display: flex; flex-direction: column; height: 100%; background: rgba(26,26,36,0.95); border-radius: 1rem; overflow: hidden;">
+            <div class="chat-header">
+                <div class="chat-header-info">
+                    <div class="chat-avatar">🤖</div>
+                    <div class="chat-header-text">
+                        <div class="name">余立的 AI 助理</div>
+                        <div class="status">在线 · Coze驱动</div>
+                    </div>
+                </div>
+                <button class="chat-close" onclick="toggleChat()">✕</button>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <div class="chat-msg chat-msg-ai">
+                    <div class="chat-bubble">你好！我是余立的 AI 助理。你可以向我了解他在大模型落地、数据分析或过往运营项目中的细节。你想先聊点什么？</div>
+                </div>
+            </div>
+            <div class="chat-quick">
+                <button class="quick-btn" onclick="sendQuick('详细说说你的 AI 等级判定项目？')">AI等级判定项目？</button>
+                <button class="quick-btn" onclick="sendQuick('你是如何用数据驱动转化提升的？')">数据驱动转化？</button>
+                <button class="quick-btn" onclick="sendQuick('你为什么想加入蔚来？')">为什么想加入蔚来？</button>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" class="chat-input" id="chat-input" placeholder="输入你的问题..." onkeydown="if(event.key==='Enter')sendMsg()">
+                <button class="chat-send" onclick="sendMsg()">发送</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Architecture Data
+        // Architecture Data - Detailed
+        const archData = {
+            voc: {
+                title: 'VOC智能分析中台',
+                desc: '面对海量且分散的用户反馈，搭建结构化的VOC收集链路，整合多渠道（App日志、客诉记录、调研问卷等）的非结构化数据，通过LLM进行痛点洞察，输出业务决策报告。',
+                stages: [
+                    {
+                        stage: '数据采集',
+                        icon: '📥',
+                        title: '用户原声采集',
+                        detail: '多渠道数据汇聚',
+                        tech: ['Python爬虫', 'App日志', '客诉记录', '调研问卷']
+                    },
+                    {
+                        stage: '数据处理',
+                        icon: '⚙️',
+                        title: '数据清洗',
+                        detail: '非结构化数据处理',
+                        tech: ['Pandas', 'NumPy', '正则清洗', '数据归一化']
+                    },
+                    {
+                        stage: 'AI分析',
+                        icon: '🤖',
+                        title: '痛点洞察LLM',
+                        detail: '语义理解与分类',
+                        tech: ['Claude API', 'RAG检索', 'Prompt调优', '情感分析']
+                    },
+                    {
+                        stage: '业务输出',
+                        icon: '📤',
+                        title: '决策报告生成',
+                        detail: '可视化与预警',
+                        tech: ['自动化报告', 'BI可视化', '流失预警', 'NPS追踪']
+                    }
+                ]
+            },
+            ai: {
+                title: 'AI英语等级判定系统',
+                desc: '将传统的学员英语等级评估从人工主观判断升级为AI自动化判定，通过深度Prompt Engineering调优，实现高精度、高效率的等级评估，大幅提升前端销售与服务的转化效率。',
+                stages: [
+                    {
+                        stage: '数据输入',
+                        icon: '📥',
+                        title: '多维测试数据',
+                        detail: '结构化测试集输入',
+                        tech: ['测试题目', '用户行为', '历史表现', '能力标签']
+                    },
+                    {
+                        stage: '模型构建',
+                        icon: '⚙️',
+                        title: 'Prompt Engineering',
+                        detail: '提示词工程与调优',
+                        tech: ['Coze工作流', '结构化Prompt', 'Few-shot', '思维链']
+                    },
+                    {
+                        stage: 'AI判定',
+                        icon: '🤖',
+                        title: '等级判定引擎',
+                        detail: '多维度综合评估',
+                        tech: ['Claude API', 'Coze接口', '结果校验', '置信度']
+                    },
+                    {
+                        stage: '输出应用',
+                        icon: '📤',
+                        title: '个性化学习路径',
+                        detail: '自动标签匹配资源',
+                        tech: ['自动打标签', '资源匹配', '销售话术', '教学推荐']
+                    }
+                ]
+            },
+            openclaw: {
+                title: 'Openclaw舆情监控矩阵',
+                desc: '基于Openclaw搭建全网自动化舆情监控矩阵，实现对小红书等社媒平台负面舆情的实时监控、快速识别与分级预警，保护品牌口碑资产。',
+                stages: [
+                    {
+                        stage: '数据采集',
+                        icon: '📥',
+                        title: '社媒数据抓取',
+                        detail: '全网非结构化数据',
+                        tech: ['Openclaw', '关键词策略', '定时抓取', '增量更新']
+                    },
+                    {
+                        stage: '智能分析',
+                        icon: '⚙️',
+                        title: 'NLP情感分类',
+                        detail: '正负面智能识别',
+                        tech: ['TextBlob', '情感打分', '话题聚类', '传播分析']
+                    },
+                    {
+                        stage: '预警触发',
+                        icon: '🔔',
+                        title: '实时预警推送',
+                        detail: '多渠道即时通知',
+                        tech: ['Webhooks', '飞书群', '企微机器人', '邮件告警']
+                    },
+                    {
+                        stage: '报告输出',
+                        icon: '📤',
+                        title: '舆情报告汇总',
+                        detail: '周期性趋势分析',
+                        tech: ['日报/周报', '趋势图表', '竞品对比', '危机复盘']
+                    }
+                ]
+            }
+        };
+
+        function switchArch(key) {
+            document.querySelectorAll('.arch-tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`.arch-tab[onclick="switchArch('${key}')"]`).classList.add('active');
+
+            const data = archData[key];
+            const flow = document.getElementById('arch-flow');
+
+            let html = `
+                <div class="arch-container">
+                    <div class="arch-project-title">${data.title}</div>
+                    <div class="arch-flow">
+            `;
+
+            data.stages.forEach((stage, i) => {
+                html += `
+                    <div class="arch-stage">
+                        <div class="arch-stage-label">${stage.stage}</div>
+                        <div class="arch-node">
+                            <div class="arch-icon">${stage.icon}</div>
+                            <div class="arch-node-title">${stage.title}</div>
+                            <div class="arch-node-detail">${stage.detail}</div>
+                            <div class="arch-node-tech">
+                                ${stage.tech.map(t => `<span>${t}</span>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                    ${i < data.stages.length - 1 ? `
+                    <div class="arch-arrow">
+                        <div class="arch-arrow-line"></div>
+                        <div class="arch-arrow-dot" style="animation-delay: ${i * 0.3}s;"></div>
+                    </div>
+                    ` : ''}
+                `;
+            });
+
+            html += `
+                    </div>
+                    <div class="arch-desc">
+                        <div class="arch-desc-title">项目描述</div>
+                        ${data.desc}
+                    </div>
+                </div>
+            `;
+
+            flow.innerHTML = html;
+        }
+        switchArch('voc');
+
+        // Chat
+        function toggleChat() {
+            document.getElementById('chat-window').classList.toggle('open');
+            document.getElementById('chat-btn').classList.toggle('active');
+        }
+        function addChatMsg(text, isUser = false) {
+            const container = document.getElementById('chat-messages');
+            const div = document.createElement('div');
+            div.className = `chat-msg chat-msg-${isUser ? 'user' : 'ai'}`;
+            div.innerHTML = `<div class="chat-bubble">${text}</div>`;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+        function showTyping() {
+            const container = document.getElementById('chat-messages');
+            const div = document.createElement('div');
+            div.id = 'typing';
+            div.className = 'chat-msg chat-msg-ai';
+            div.innerHTML = `<div class="chat-typing"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div>`;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+        function hideTyping() {
+            const t = document.getElementById('typing');
+            if (t) t.remove();
+        }
+        function sendMsg() {
+            const input = document.getElementById('chat-input');
+            const text = input.value.trim();
+            if (!text) return;
+            addChatMsg(text, true);
+            input.value = '';
+            showTyping();
+
+            const sessionId = 'session_' + Date.now().toString();
+            fetch('/api/coze', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    query: text,
+                    session_id: sessionId
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                hideTyping();
+                console.log('API Response:', data);
+                let reply = '';
+                if (data?.choices?.[0]?.message?.content) {
+                    reply = data.choices[0].message.content;
+                } else if (data?.message) {
+                    reply = data.message;
+                } else if (data?.error) {
+                    reply = '错误: ' + data.error;
+                } else if (typeof data === 'string') {
+                    reply = data;
+                } else {
+                    reply = JSON.stringify(data);
+                }
+                addChatMsg(reply || '抱歉，暂时无法回答。');
+            })
+            .catch(err => {
+                hideTyping();
+                addChatMsg('网络错误: ' + err.message);
+            });
+        }
+        function sendQuick(text) {
+            document.getElementById('chat-input').value = text;
+            sendMsg();
+        }
+
+        // Scroll Animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Chart Tooltips
+        document.querySelectorAll('.hover-dot').forEach(dot => {
+            dot.addEventListener('mouseenter', (e) => {
+                const info = e.target.dataset.info.split('|');
+                const tooltip = document.getElementById('line-tooltip');
+                tooltip.innerHTML = `<div style="color: var(--nio-blue); font-weight: 600;">${info[0]}</div><div style="color: rgba(255,255,255,0.6); font-size: 0.75rem;">${info[1]}</div>`;
+                tooltip.classList.add('show');
+            });
+            dot.addEventListener('mouseleave', () => {
+                document.getElementById('line-tooltip').classList.remove('show');
+            });
+        });
+    </script>
+</body>
+</html>
