@@ -1263,7 +1263,7 @@
     </footer>
 
     <!-- Scroll to Top Button -->
-    <button class="chat-btn" id="scroll-top-btn" onclick="scrollToTop()">↑</button>
+    <button class="scroll-top-btn" id="scroll-top-btn" onclick="scrollToTop()">↑</button>
 
     <script>
         // Architecture Data
@@ -1421,60 +1421,7 @@
         }
         switchArch('voc');
 
-        // Chat
-        // Chat - Fixed session
-        let sessionId = 'yuli_chat_001';
-        let messageCount = 0;
-
-        // Opening message to filter (based on actual response)
-        const openingText = '如果您有关于余立的专业背景';
-
-        `;
-            div.innerHTML = `<div class="chat-bubble">${text}</div>`;
-            container.appendChild(div);
-            container.scrollTop = container.scrollHeight;
-        }
-        ,
-                body: JSON.stringify({
-                    query: text,
-                    session_id: sessionId
-                })
-            })
-            .then(res => res.json())
-            .then(data => {
-                hideTyping();
-                console.log('API Response:', data);
-                let reply = '';
-
-                if (data?.message) {
-                    reply = data.message;
-                } else if (data?.choices?.[0]?.message?.content) {
-                    reply = data.choices[0].message.content;
-                } else if (data?.error) {
-                    reply = 'AI服务错误: ' + (data.message || data.error);
-                } else if (typeof data === 'string') {
-                    reply = data;
-                } else {
-                    reply = JSON.stringify(data);
-                }
-
-                // Filter opening message - Coze bot keeps sending opening instead of answering
-                const isOpeningMessage =
-                  (reply.includes('专业背景') || reply.includes('专业能力')) &&
-                  (reply.includes('随时告知') || reply.includes('随时提出'));
-
-                if (isOpeningMessage) {
-                    // This is the opening message, ask what they want to know
-                    addChatMsg('你好！我已经了解余立的背景了。关于他的经历，你想了解哪个方面？比如：\n• 工作经历\n• 核心项目\n• 技能能力\n• 为什么想加入蔚来', false);
-                } else {
-                    addChatMsg(reply || '抱歉，暂时无法回答。');
-                }
-            })
-            .catch(err => {
-                hideTyping();
-                addChatMsg('网络错误: ' + err.message);
-            });
-        }
+        
         // Scroll Animation
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
@@ -1495,52 +1442,10 @@
         });
     </script>
 
-<!-- Coze Web SDK - functions defined first, then SDK loads -->
-<script>
-// Define functions before SDK loads
-function initCozeChat() {
-    console.log('SDK loaded, typeof cozeWebSDK:', typeof cozeWebSDK);
-
-    if (typeof cozeWebSDK === 'undefined') {
-        document.getElementById('chat-window').innerHTML =
-            '<div class="error">SDK 加载失败 - cozeWebSDK 未定义</div>';
-        return;
-    }
-
-    if (typeof cozeWebSDK.WebChatClient === 'undefined') {
-        document.getElementById('chat-window').innerHTML =
-            '<div class="error">SDK 加载失败 - WebChatClient 未定义</div>';
-        return;
-    }
-
-    try {
-        const chatWindow = document.getElementById('chat-window');
-        chatWindow.innerHTML = '';
-
-        new cozeWebSDK.WebChatClient({
-            config: { bot_id: '7630821511636500531' },
-            componentProps: { title: '余立面试助手', layout: 'pc' },
-            el: chatWindow,
-        });
-
-        console.log('Coze Chat 初始化成功');
-    } catch (error) {
-        console.error('初始化失败:', error);
-    }
-}
-
-function handleLoadError() {
-    console.error('SDK 文件加载失败');
-    document.getElementById('chat-window').innerHTML =
-        '<div class="error">SDK 文件加载失败，请检查网络连接</div>';
-}
-</script>
-
-<script>
-function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-</script>
-
+    <script>
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
