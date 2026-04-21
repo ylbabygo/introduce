@@ -1559,14 +1559,9 @@
         });
     </script>
 
-<!-- Coze Web SDK -->
-<script
-    src="https://lf-cdn.coze.cn/obj/unpkg/latest/coze/web-sdk/dist/js-umd/index.min.js"
-    onload="initCozeChat()"
-    onerror="handleLoadError()">
-</script>
-
+<!-- Coze Web SDK - functions defined first, then SDK loads -->
 <script>
+// Define functions before SDK loads
 function initCozeChat() {
     console.log('SDK loaded, typeof CozeWebSDK:', typeof CozeWebSDK);
 
@@ -1603,6 +1598,11 @@ function handleLoadError() {
     document.getElementById('chat-window').innerHTML =
         '<div class="error">SDK 文件加载失败，请检查网络连接</div>';
 }
+</script>
+<script
+    src="https://lf-cdn.coze.cn/obj/unpkg/latest/coze/web-sdk/dist/js-umd/index.min.js"
+    onload="initCozeChat()"
+    onerror="handleLoadError()">
 </script>
 </body>
 </html>
