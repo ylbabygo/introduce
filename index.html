@@ -1558,14 +1558,51 @@
             });
         });
     </script>
-<!-- Coze Web SDK - Replace the src with your actual SDK URL from Coze console -->
-    <script src="https://lf-cdn.coze.cn/obj/unpkg/latest/coze/web-sdk/dist/js-umd/index.min.js"></script>
-    <script>
+
+<!-- Coze Web SDK -->
+<script
+    src="https://lf-cdn.coze.cn/obj/unpkg/latest/coze/web-sdk/dist/js-umd/index.min.js"
+    onload="initCozeChat()"
+    onerror="handleLoadError()">
+</script>
+
+<script>
+function initCozeChat() {
+    console.log('SDK loaded, typeof CozeWebSDK:', typeof CozeWebSDK);
+
+    if (typeof CozeWebSDK === 'undefined') {
+        document.getElementById('chat-window').innerHTML =
+            '<div class="error">SDK 加载失败 - CozeWebSDK 未定义</div>';
+        return;
+    }
+
+    if (typeof CozeWebSDK.WebChatClient === 'undefined') {
+        document.getElementById('chat-window').innerHTML =
+            '<div class="error">SDK 加载失败 - WebChatClient 未定义</div>';
+        return;
+    }
+
+    try {
+        const chatWindow = document.getElementById('chat-window');
+        chatWindow.innerHTML = '';
+
         new CozeWebSDK.WebChatClient({
             config: { bot_id: '7630821511636500531' },
             componentProps: { title: '余立面试助手', layout: 'pc' },
-            el: document.getElementById('chat-window'),
+            el: chatWindow,
         });
-    </script>
+
+        console.log('Coze Chat 初始化成功');
+    } catch (error) {
+        console.error('初始化失败:', error);
+    }
+}
+
+function handleLoadError() {
+    console.error('SDK 文件加载失败');
+    document.getElementById('chat-window').innerHTML =
+        '<div class="error">SDK 文件加载失败，请检查网络连接</div>';
+}
+</script>
 </body>
 </html>
