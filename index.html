@@ -1539,30 +1539,7 @@
             sendMsg();
         }
 
-        // Initialize chat on page load - send "hi" first to establish context
-        window.addEventListener('load', async () => {
-            showTyping();
-            try {
-                const res = await fetch('/api/coze', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ query: '你好', session_id: sessionId })
-                });
-                const data = await res.json();
-                hideTyping();
-                console.log('Init Response:', data);
-                // Filter opening, show welcome instead
-                const reply = data?.message || '';
-                if (!reply.includes('专业背景') && !reply.includes('随时提出')) {
-                    addChatMsg(reply || '你好！我是余立的 AI 助理。', false);
-                } else {
-                    addChatMsg('你好！我是余立的 AI 助理。关于他的经历，你想了解哪个方面？\n• 工作经历\n• 核心项目\n• 技能能力\n• 为什么想加入蔚来', false);
-                }
-            } catch (e) {
-                hideTyping();
-                addChatMsg('AI 助理初始化失败，请刷新重试。', false);
-            }
-        });
+        // Scroll Animation
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
         }, { threshold: 0.1 });
@@ -1580,20 +1557,15 @@
                 document.getElementById('line-tooltip').classList.remove('show');
             });
         });
-    <!-- Coze Web SDK -->
-<script src="https://lf-cdn.coze.cn/obj/unpkg/xxl/coze-web-sdk@latest/umd/index.js"></script>
-<script>
-    new CozeWebSDK.WebChatClient({
-        config: {
-            bot_id: '7630821511636500531',
-        },
-        componentProps: {
-            title: '余立面试助手',
-            layout: 'pc',
-        },
-        el: document.getElementById('chat-window'),
-    });
-</script>
-</script>
+    </script>
+<!-- Coze Web SDK - Replace the src with your actual SDK URL from Coze console -->
+    <script src="code.coze.cn/web-sdk/7630821511636500531"></script>
+    <script>
+        new CozeWebSDK.WebChatClient({
+            config: { bot_id: '7630821511636500531' },
+            componentProps: { title: '余立面试助手', layout: 'pc' },
+            el: document.getElementById('chat-window'),
+        });
+    </script>
 </body>
 </html>
