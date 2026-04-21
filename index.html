@@ -1563,15 +1563,15 @@
 <script>
 // Define functions before SDK loads
 function initCozeChat() {
-    console.log('SDK loaded, typeof CozeWebSDK:', typeof CozeWebSDK);
+    console.log('SDK loaded, typeof cozeWebSDK:', typeof cozeWebSDK);
 
-    if (typeof CozeWebSDK === 'undefined') {
+    if (typeof cozeWebSDK === 'undefined') {
         document.getElementById('chat-window').innerHTML =
-            '<div class="error">SDK 加载失败 - CozeWebSDK 未定义</div>';
+            '<div class="error">SDK 加载失败 - cozeWebSDK 未定义</div>';
         return;
     }
 
-    if (typeof CozeWebSDK.WebChatClient === 'undefined') {
+    if (typeof cozeWebSDK.WebChatClient === 'undefined') {
         document.getElementById('chat-window').innerHTML =
             '<div class="error">SDK 加载失败 - WebChatClient 未定义</div>';
         return;
@@ -1581,7 +1581,7 @@ function initCozeChat() {
         const chatWindow = document.getElementById('chat-window');
         chatWindow.innerHTML = '';
 
-        new CozeWebSDK.WebChatClient({
+        new cozeWebSDK.WebChatClient({
             config: { bot_id: '7630821511636500531' },
             componentProps: { title: '余立面试助手', layout: 'pc' },
             el: chatWindow,
