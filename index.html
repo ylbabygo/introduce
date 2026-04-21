@@ -1580,6 +1580,20 @@
                 document.getElementById('line-tooltip').classList.remove('show');
             });
         });
-    </script>
+    <!-- Coze Web SDK -->
+<script src="https://lf-cdn.coze.cn/obj/unpkg/xxl/coze-web-sdk@latest/umd/index.js"></script>
+<script>
+    new CozeWebSDK.WebChatClient({
+        config: {
+            bot_id: '7630821511636500531',
+        },
+        componentProps: {
+            title: '余立面试助手',
+            layout: 'pc',
+        },
+        el: document.getElementById('chat-window'),
+    });
+</script>
+</script>
 </body>
 </html>
