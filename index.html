@@ -681,7 +681,7 @@
         .contact-value { font-size: 1rem; font-weight: 500; }
 
         /* ========== CHAT ========== */
-        .chat-btn {
+        .scroll-top-btn {
             position: fixed;
             bottom: 1.75rem;
             right: 1.75rem;
@@ -1262,36 +1262,8 @@
         <p>© 2026 余立 · 简历 · 期待加入蔚来</p>
     </footer>
 
-    <!-- Chat Widget -->
-    <button class="chat-btn" id="chat-btn" onclick="toggleChat()">💬</button>
-    <div class="glass chat-window" id="chat-window">
-        <div style="display: flex; flex-direction: column; height: 100%; background: rgba(26,26,36,0.95); border-radius: 1rem; overflow: hidden;">
-            <div class="chat-header">
-                <div class="chat-header-info">
-                    <div class="chat-avatar">🤖</div>
-                    <div class="chat-header-text">
-                        <div class="name">余立的 AI 助理</div>
-                        <div class="status">在线 · Coze驱动</div>
-                    </div>
-                </div>
-                <button class="chat-close" onclick="toggleChat()">✕</button>
-            </div>
-            <div class="chat-messages" id="chat-messages">
-                <div class="chat-msg chat-msg-ai">
-                    <div class="chat-bubble">你好！我是余立的 AI 助理。你可以向我了解他在大模型落地、数据分析或过往运营项目中的细节。你想先聊点什么？</div>
-                </div>
-            </div>
-            <div class="chat-quick">
-                <button class="quick-btn" onclick="sendQuick('详细说说你的 AI 等级判定项目？')">AI等级判定项目？</button>
-                <button class="quick-btn" onclick="sendQuick('你是如何用数据驱动转化提升的？')">数据驱动转化？</button>
-                <button class="quick-btn" onclick="sendQuick('你为什么想加入蔚来？')">为什么想加入蔚来？</button>
-            </div>
-            <div class="chat-input-area">
-                <input type="text" class="chat-input" id="chat-input" placeholder="输入你的问题..." onkeydown="if(event.key==='Enter')sendMsg()">
-                <button class="chat-send" onclick="sendMsg()">发送</button>
-            </div>
-        </div>
-    </div>
+    <!-- Scroll to Top Button -->
+    <button class="chat-btn" id="scroll-top-btn" onclick="scrollToTop()">↑</button>
 
     <script>
         // Architecture Data
@@ -1450,10 +1422,6 @@
         switchArch('voc');
 
         // Chat
-        function toggleChat() {
-            document.getElementById('chat-window').classList.toggle('open');
-            document.getElementById('chat-btn').classList.toggle('active');
-        }
         // Chat - Fixed session
         let sessionId = 'yuli_chat_001';
         let messageCount = 0;
@@ -1461,39 +1429,12 @@
         // Opening message to filter (based on actual response)
         const openingText = '如果您有关于余立的专业背景';
 
-        function addChatMsg(text, isUser = false) {
-            const container = document.getElementById('chat-messages');
-            const div = document.createElement('div');
-            div.className = `chat-msg chat-msg-${isUser ? 'user' : 'ai'}`;
+        `;
             div.innerHTML = `<div class="chat-bubble">${text}</div>`;
             container.appendChild(div);
             container.scrollTop = container.scrollHeight;
         }
-        function showTyping() {
-            const container = document.getElementById('chat-messages');
-            const div = document.createElement('div');
-            div.id = 'typing';
-            div.className = 'chat-msg chat-msg-ai';
-            div.innerHTML = `<div class="chat-typing"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div>`;
-            container.appendChild(div);
-            container.scrollTop = container.scrollHeight;
-        }
-        function hideTyping() {
-            const t = document.getElementById('typing');
-            if (t) t.remove();
-        }
-        function sendMsg() {
-            const input = document.getElementById('chat-input');
-            const text = input.value.trim();
-            if (!text) return;
-            addChatMsg(text, true);
-            input.value = '';
-            showTyping();
-
-            messageCount++;
-            fetch('/api/coze', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+        ,
                 body: JSON.stringify({
                     query: text,
                     session_id: sessionId
@@ -1534,11 +1475,6 @@
                 addChatMsg('网络错误: ' + err.message);
             });
         }
-        function sendQuick(text) {
-            document.getElementById('chat-input').value = text;
-            sendMsg();
-        }
-
         // Scroll Animation
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
@@ -1599,10 +1535,12 @@ function handleLoadError() {
         '<div class="error">SDK 文件加载失败，请检查网络连接</div>';
 }
 </script>
-<script
-    src="https://lf-cdn.coze.cn/obj/unpkg/latest/coze/web-sdk/dist/js-umd/index.min.js"
-    onload="initCozeChat()"
-    onerror="handleLoadError()">
+
+<script>
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 </script>
+
 </body>
 </html>
